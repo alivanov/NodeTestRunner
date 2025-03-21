@@ -1,21 +1,16 @@
-export class MyClass {
-    private privateMethod(): string {
-      return "Private method";
-    }
-  
-    protected protectedMethod(): string {
-      return "Protected method";
-    }
-  
-    public publicMethod(): string {
-      return "Public method";
-    }
-  
-    public callProtectedMethod(): string {
-      return this.protectedMethod();
+export class AltitudeSensor {
+
+    private _currentAltitude: number;
+
+    constructor(currentAltitude: number) {
+        this._currentAltitude = currentAltitude;
     }
 
-    public callPrivateMethod(): string {
-        return this.privateMethod();
-      }
+    public get value() {
+        return this._currentAltitude;
+    }
+
+    public set value(value: number) {
+        this._currentAltitude = value;
+    }
   }

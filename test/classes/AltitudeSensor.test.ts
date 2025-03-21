@@ -1,20 +1,18 @@
-import { MyClass } from '../../src/classes/AltitudeSensor';
+import { sensorFactory } from '../../src/classes';
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 
 describe('AltitudeSensor', () => {
-  it('should call public method', () => {
-    const myClass = new MyClass();
-    assert.strictEqual(myClass.publicMethod(), "Public method");
+  it('constructs an object with the initial altitude value', () => {
+    const INITIAL_ALTITUDE = 10;
+    const altitudeSensor = sensorFactory.create('altitude', INITIAL_ALTITUDE);
+    assert.equal(altitudeSensor.value, INITIAL_ALTITUDE);
   });
 
-  it('should call protected method via public method', () => {
-    const myClass = new MyClass();
-    assert.strictEqual(myClass.callProtectedMethod(), "Protected method");
-  });
-
-  it('should call private method via public method', () => {
-    const myClass = new MyClass();
-    assert.strictEqual(myClass.callPrivateMethod(), "Private method");
+  it('updates the altitude', () => {
+    const INITIAL_ALTITUDE = 10;
+    const altitudeSensor = sensorFactory.create('altitude', INITIAL_ALTITUDE);
+    altitudeSensor.value = 100;
+    assert.equal(altitudeSensor.value, 100);
   });
 });
