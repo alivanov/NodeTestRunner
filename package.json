@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
     "test:statements": "node --import tsx --test test/**/**/*.statements.test.ts",
     "test:statements:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.statements.test.ts",
     "test:branch": "node --import tsx --test test/**/**/*.branch.test.ts",

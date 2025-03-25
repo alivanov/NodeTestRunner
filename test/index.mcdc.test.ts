@@ -68,4 +68,122 @@ describe('goToSecondApproach', () => {
     assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
     assert.equal(flightStateSensor.value, FlightState.SECONDAPPROACH);
   });
+
+  //------------ Testing of boundary conditions
+
+  /**
+   * TC 4 [LLR-204]: 
+   * - LandingGear.ON
+   * - Flaps.ON
+   * - Crosswind == 9
+   * EXPECTED:
+   * - FlightState.LANDED
+   * - function returns 0
+   */
+  it('Weak crosswind: FlightStateSensor indicates the airplane should land', () => {
+    const INITIAL_CROSSWIND = 9;
+    const landingGearSensor = sensorFactory.create({type: 'gear', value: LandingGear.ON}) as LandingGearSensor;
+    const flapsSensor = sensorFactory.create({type: 'flaps', value: Flaps.ON}) as FlapsSensor;
+    const crosswindSensor = sensorFactory.create({type: 'crosswind', value: INITIAL_CROSSWIND}) as CrosswindSensor;
+    const flightStateSensor = sensorFactory.create({type: 'flight', value: FlightState.CRUISE}) as FlightStateSensor;
+    assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
+    assert.equal(flightStateSensor.value, FlightState.LANDED);
+  });
+
+  /**
+   * TC 5 [LLR-204]: 
+   * - LandingGear.ON
+   * - Flaps.ON
+   * - Crosswind == 10
+   * EXPECTED:
+   * - FlightState.LANDED
+   * - function returns 0
+   */
+  it('Medium crosswind: FlightStateSensor indicates the airplane should land', () => {
+    const INITIAL_CROSSWIND = 10;
+    const landingGearSensor = sensorFactory.create({type: 'gear', value: LandingGear.ON}) as LandingGearSensor;
+    const flapsSensor = sensorFactory.create({type: 'flaps', value: Flaps.ON}) as FlapsSensor;
+    const crosswindSensor = sensorFactory.create({type: 'crosswind', value: INITIAL_CROSSWIND}) as CrosswindSensor;
+    const flightStateSensor = sensorFactory.create({type: 'flight', value: FlightState.CRUISE}) as FlightStateSensor;
+    assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
+    assert.equal(flightStateSensor.value, FlightState.LANDED);
+  });
+
+  /**
+   * TC 6 [LLR-203]: 
+   * - LandingGear.ON
+   * - Flaps.ON
+   * - Crosswind == 11
+   * EXPECTED:
+   * - FlightState.SECONDAPPROACH
+   * - function returns 0
+   */
+  it('Strong crosswind: FlightStateSensor indicates the airplane should go to the 2nd approach', () => {
+    const INITIAL_CROSSWIND = 11;
+    const landingGearSensor = sensorFactory.create({type: 'gear', value: LandingGear.ON}) as LandingGearSensor;
+    const flapsSensor = sensorFactory.create({type: 'flaps', value: Flaps.ON}) as FlapsSensor;
+    const crosswindSensor = sensorFactory.create({type: 'crosswind', value: INITIAL_CROSSWIND}) as CrosswindSensor;
+    const flightStateSensor = sensorFactory.create({type: 'flight', value: FlightState.CRUISE}) as FlightStateSensor;
+    assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
+    assert.equal(flightStateSensor.value, FlightState.SECONDAPPROACH);
+  });
+
+  /**
+   * TC 7 [LLR-204]: 
+   * - LandingGear.ON
+   * - Flaps.ON
+   * - Crosswind == 0
+   * EXPECTED:
+   * - FlightState.SECONDAPPROACH
+   * - function returns 0
+   */
+  it('No crosswind: FlightStateSensor indicates the airplane should land', () => {
+    const INITIAL_CROSSWIND = 0;
+    const landingGearSensor = sensorFactory.create({type: 'gear', value: LandingGear.ON}) as LandingGearSensor;
+    const flapsSensor = sensorFactory.create({type: 'flaps', value: Flaps.ON}) as FlapsSensor;
+    const crosswindSensor = sensorFactory.create({type: 'crosswind', value: INITIAL_CROSSWIND}) as CrosswindSensor;
+    const flightStateSensor = sensorFactory.create({type: 'flight', value: FlightState.CRUISE}) as FlightStateSensor;
+    assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
+    assert.equal(flightStateSensor.value, FlightState.LANDED);
+  });
+
+  //------------ Robustity testing
+
+   /**
+   * TC 8 [LLR-204]: 
+   * - LandingGear.ON
+   * - Flaps.ON
+   * - Crosswind == -1
+   * EXPECTED:
+   * - FlightState.LANDED
+   * - function returns 0
+   */
+  it('Robusity: negative crosswind - FlightStateSensor indicates the airplane should land', () => {
+    const INITIAL_CROSSWIND = -1;
+    const landingGearSensor = sensorFactory.create({type: 'gear', value: LandingGear.ON}) as LandingGearSensor;
+    const flapsSensor = sensorFactory.create({type: 'flaps', value: Flaps.ON}) as FlapsSensor;
+    const crosswindSensor = sensorFactory.create({type: 'crosswind', value: INITIAL_CROSSWIND}) as CrosswindSensor;
+    const flightStateSensor = sensorFactory.create({type: 'flight', value: FlightState.CRUISE}) as FlightStateSensor;
+    assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
+    assert.equal(flightStateSensor.value, FlightState.LANDED);
+  });
+
+  /**
+   * TC 9 [LLR-203]: 
+   * - LandingGear.ON
+   * - Flaps.ON
+   * - Crosswind == Number.MAX_VALUE
+   * EXPECTED:
+   * - FlightState.SECONDAPPROACH
+   * - function returns 0
+   */
+  it('Robusity: armageddon crosswind - FlightStateSensor indicates the airplane should go to the 2nd approach', () => {
+    const INITIAL_CROSSWIND = Number.MAX_VALUE;
+    const landingGearSensor = sensorFactory.create({type: 'gear', value: LandingGear.ON}) as LandingGearSensor;
+    const flapsSensor = sensorFactory.create({type: 'flaps', value: Flaps.ON}) as FlapsSensor;
+    const crosswindSensor = sensorFactory.create({type: 'crosswind', value: INITIAL_CROSSWIND}) as CrosswindSensor;
+    const flightStateSensor = sensorFactory.create({type: 'flight', value: FlightState.CRUISE}) as FlightStateSensor;
+    assert.equal(goToSecondApproach(landingGearSensor, flapsSensor, crosswindSensor, flightStateSensor), 0);
+    assert.equal(flightStateSensor.value, FlightState.SECONDAPPROACH);
+  });
 });
