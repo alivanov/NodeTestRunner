@@ -4,8 +4,18 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "node --import tsx --test test/**/**/*.test.ts",
-    "test:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.test.ts"
+    "test:statements": "node --import tsx --test test/**/**/*.statements.test.ts",
+    "test:statements:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.statements.test.ts",
+    "test:branch": "node --import tsx --test test/**/**/*.branch.test.ts",
+    "test:branch:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.branch.test.ts",
+    "test:condition": "node --import tsx --test test/**/**/*.condition.test.ts",
+    "test:condition:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.condition.test.ts",
+    "test:cd": "node --import tsx --test test/**/**/*.cd.test.ts",
+    "test:cd:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.cd.test.ts",
+    "test:mcc": "node --import tsx --test test/**/**/*.mcc.test.ts",
+    "test:mcc:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.mcc.test.ts",
+    "test:mcdc": "node --import tsx --test test/**/**/*.mcdc.test.ts",
+    "test:mcdc:coverage": "c8 --reporter=text --reporter=html --all node --import tsx --test test/**/**/*.mcdc.test.ts"
   },
   "keywords": [],
   "author": "",
