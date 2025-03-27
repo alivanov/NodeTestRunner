@@ -16,7 +16,7 @@ describe('goToSecondApproach', () => {
    * - Flaps.OFF
    * - Crosswind == 5
    * EXPECTED:
-   * - FlightState.SECONDAPPROACH
+   * - FlightState.CRUISE
    * - function returns 0
    */
   it('LandingGear.ON && Flaps.ON: FlightStateSensor indicates the airplane should continue the flight', () => {
